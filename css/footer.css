@@ -1,0 +1,30 @@
+/* footer */
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100vw; /*우리가 보는 화면을 100%로 채움*/
+  padding-bottom: 20px;
+  padding-top: 10px;
+  border-top: 1px solid #eaeaea;
+  background-color: white;
+}
+.footer-block {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-icons {
+  font-size: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 0 20px 0 20px;
+  cursor: pointer;
+}
+
+.footer-icons__img {
+  width: 30px;
+  margin-bottom: 5px;
+}
