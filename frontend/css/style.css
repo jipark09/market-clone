@@ -8,6 +8,10 @@
   --button-hover: rgb(254, 111, 15, 0.8);
 }
 
+a {
+  text-decoration: none;
+}
+
 .media-info-msg {
   position: fixed;
   top: 0;
