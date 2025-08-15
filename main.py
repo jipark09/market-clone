@@ -22,6 +22,18 @@ cur.execute(f"""
 
 app = FastAPI()
 
+@app.post('/signup')
+def login(id:Annotated[str, Form()], 
+          password:Annotated[str, Form()], 
+          name:Annotated[str, Form()], 
+          email:Annotated[str, Form()]):
+    cur.execute(f"""
+                INSERT INTO users(id, name, email, password)
+                VALUES ('{id}', '{name}', '{email}', '{password}')
+                """)
+    con.commit()
+    return '200'
+
 @app.get('/items')
 async def read_items():
     con.row_factory = sqlite3.Row # 컬럼명도 같이 들고옴
