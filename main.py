@@ -1,7 +1,9 @@
-from fastapi import FastAPI,UploadFile,Form,Response
+from fastapi import FastAPI,UploadFile,Form,Response,Depends
 from fastapi.responses import JSONResponse
 from fastapi.encoders import jsonable_encoder
 from fastapi.staticfiles import StaticFiles
+from fastapi_login import LoginManager
+from fastapi_login.exceptions import InvalidCredentialsException
 from typing import Annotated
 import sqlite3
 
@@ -22,8 +24,50 @@ cur.execute(f"""
 
 app = FastAPI()
 
+SERCRET = "jeini-key"
+manager = LoginManager(SERCRET, '/login')
+
+@manager.user_loader()
+def userCheck(data):
+    WHERE_STATEMENTS = f'id="{data}"'
+    
+    if type (data) == dict:
+        WHERE_STATEMENTS = f'''id="{data['id']}"'''
+    con.row_factory = sqlite3.Row
+    cur = con.cursor()
+    user = cur.execute(f"""
+                       SELECT * FROM users WHERE {WHERE_STATEMENTS}
+                       """).fetchone()
+    print(dict(user))
+    return user
+
+@app.post('/login')
+def login(id:Annotated[str, Form()],
+          password:Annotated[str, Form()],
+          ):
+    print(id, password)
+    user = userCheck(id)
+    if not user:
+        raise InvalidCredentialsException
+    elif password != user['password']:
+        raise InvalidCredentialsException
+    
+    # access_token = manager.create_access_token(data={
+    #     'sub' : {
+    #         'id' : user['id'],
+    #         'name' : user['name'],
+    #         'email' : user['email']
+    #     }
+    # })
+    
+    access_token = manager.create_access_token(data={"sub": user['id']})
+
+    return {'access_token' : access_token}
+
+    
+
 @app.post('/signup')
-def login(id:Annotated[str, Form()], 
+def signup(id:Annotated[str, Form()], 
           password:Annotated[str, Form()], 
           name:Annotated[str, Form()], 
           email:Annotated[str, Form()]):
@@ -35,7 +79,8 @@ def login(id:Annotated[str, Form()],
     return '200'
 
 @app.get('/items')
-async def read_items():
+async def read_items(user = Depends(manager)):
+    print(user)
     con.row_factory = sqlite3.Row # 컬럼명도 같이 들고옴
     cur = con.cursor() # DB를 가져오면서 connection의 현재 위치를 업데이트함
     rows = cur.execute(f"""
@@ -50,7 +95,8 @@ async def create_items(image:UploadFile,
                 price:Annotated[int, Form()],
                 description:Annotated[str, Form()],
                 place:Annotated[str, Form()],
-                insertAt:Annotated[int, Form()]
+                insertAt:Annotated[int, Form()],
+                user = Depends(manager)
                 ):
     # 이미지 읽음
     image_bytes = await image.read()
