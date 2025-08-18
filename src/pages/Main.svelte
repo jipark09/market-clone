@@ -1,0 +1,74 @@
+<script>
+  let hour = new Date().getHours();
+  let min = new Date().getMinutes();
+</script>
+
+<header>
+  <div class="info-bar">
+    <div class="info-bar__time">{hour}:{min}</div>
+    <div class="info-bar__icons">
+      <img src="assets/chart-bar.svg" alt="chart" />
+      <img src="assets/wifi.svg" alt="wifi" />
+      <img src="assets/battery.svg" alt="battery" />
+    </div>
+  </div>
+
+  <div class="menu-bar">
+    <div class="menu-bar__location">
+      <div class="menu-bar__text">역삼1동</div>
+      <img src="assets/arrowDown.svg" alt="arrowDown" />
+    </div>
+    <div class="menu-bar__icons">
+      <img src="assets/search.svg" alt="search" />
+      <img src="assets/menu.svg" alt="menu" />
+      <img src="assets/alert.svg" alt="alert" />
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="item-list-overflow">
+    <a class="write-btn" href="#/write">✏️ 글쓰기</a>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-block">
+    <!-- home -->
+    <div class="footer-icons">
+      <div class="footer-icons__img">
+        <img src="assets/home.svg" alt="home" />
+      </div>
+      <div class="">home</div>
+    </div>
+    <!-- document -->
+    <div class="footer-icons">
+      <div class="footer-icons__img">
+        <img src="assets/document.svg" alt="document" />
+      </div>
+      <div class="">home</div>
+    </div>
+    <!-- location -->
+    <div class="footer-icons">
+      <div class="footer-icons__img">
+        <img src="assets/location.svg" alt="location" />
+      </div>
+      <div class="">location</div>
+    </div>
+    <!-- chat -->
+    <div class="footer-icons">
+      <div class="footer-icons__img">
+        <img src="assets/chat.svg" alt="chat" />
+      </div>
+      <div class="">chat</div>
+    </div>
+    <!-- user -->
+    <div class="footer-icons">
+      <div class="footer-icons__img">
+        <img src="assets/user.svg" alt="user" />
+      </div>
+      <div class="">user</div>
+    </div>
+  </div>
+</footer>
+<div class="media-info-msg">화면 사이즈를 줄여주세요.</div>

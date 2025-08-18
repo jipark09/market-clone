@@ -1,0 +1,27 @@
+<form id="signup-form" action="/signup">
+  <div class="">회원가입</div>
+  <div class="">
+    <label for="name">이름</label>
+    <input type="text" id="name" name="name" required />
+  </div>
+  <div class="">
+    <label for="id">아이디</label>
+    <input type="text" id="id" name="id" required />
+  </div>
+  <div class="">
+    <label for="password">비밀번호</label>
+    <input type="password" id="password" name="password" required />
+  </div>
+  <div class="">
+    <label for="passwordCheck">비밀번호 확인</label>
+    <input type="password" id="passwordCheck" name="passwordCheck" required />
+  </div>
+  <div class="">
+    <label for="email">이메일</label>
+    <input type="email" id="email" name="email" />
+  </div>
+  <div class="">
+    <button type="submit">회원 가입하기</button>
+  </div>
+</form>
+<!-- <script src="https://cdn.jsdelivr.net/npm/js-sha256@0.11.0/build/sha256.min.js"></script> -->
